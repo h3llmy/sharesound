@@ -26,7 +26,7 @@
                     </ul>
              </li>
             <li class="nav-item">
-            <a class="nav-link" href="#">Testimonial</a>
+            <a class="nav-link" href="#">Playlist</a>
             </li>
           </ul>
           
@@ -65,7 +65,7 @@
                                     </a>
                                     <hr class="dropdown-divider">
                                     <a class="dropdown-item" href="{{ route('password.request') }}">
-                                        Reset Password
+                                        Change Password
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

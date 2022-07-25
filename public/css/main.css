@@ -1,29 +1,49 @@
-body{
-    font: 15px helvetica,arial,freesans,clean,sans-serif;
-    margin: 20px auto;    
-    text-align: center;
-  }
-  #waveform{
-    background: rgba(0,0,0,0.8);
-    margin-bottom: 10px;
-  }
-  button{
-    background: #eee;
-    border: 1px solid #ddd;
-    border-bottom: 4px solid #ccc;
-    cursor: pointer;
+.background{
+    width: 100%;
+    /* height: 100%; */
+    background-image: linear-gradient(rgba(0,0,0,0.1),#00b7ff);
+    background-position: center;
+    background-size: cover;
+    display: flex;
+}
+
+.music img{
+    width: 270px;
+    max-height: 270px;
+}
+.music{
+    width: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+    background: #000;
+    display: flex;
+}
+
+.info{
+    color: #fff;
+    margin-left: 30px;
+    flex: 1;
+}
+
+.info p{
     font-size: 20px;
-    margin-top: 10px;
-    padding: 10px;
-  }
-  button:active{
-    outline: none;
-    border-top: 4px solid #eee;
-    border-bottom: 2px solid #777;
-  }
-  button:focus{
-    outline: none;
-  }
-  .volbox{
-    margin-top: 20px;
-  }
+    margin:  10px 0 60px;
+}
+
+.controls-bottom{
+    display: flex;
+    align-items: center;
+}
+
+.controls-bottom img{
+    width: 20px;
+    margin-left: 30px;
+    cursor: pointer;
+}
+.volume-slider-bottom{
+    margin-left: 20px;
+}
+
+.time{
+    margin-left: 20px;
+}

@@ -1,14 +1,151 @@
+var btnPlay = document.getElementById("btnPlay");
+var btnStop = document.getElementById("btnStop");
+var btnVolume = document.getElementById("btnVolume");
+var timeCurrent = document.getElementById('time-current')
+var timeRemaining = document.getElementById('time-remaining')
+var volumeSlider = document.getElementById("VolumeSlider")
+var btneqDefault = document.getElementById("btneqDefault")
+var btnEQ = document.getElementById("btnEQ")
+
 var wavesurfer = WaveSurfer.create({
-    container: '#waveform',
-    waveColor: '#D2EDD4',
-    progressColor: '#46B54D'
-  })
-  
-  wavesurfer.load('https://ia902606.us.archive.org/35/items/shortpoetry_047_librivox/song_cjrg_teasdale_64kb.mp3');
-  
-  
-  // Equalizer
-  wavesurfer.on('ready', function () {
+normalize : true,
+container: '#waveform',
+waveColor: '#a3e5ff',
+progressColor: '#00b7ff',
+ProgressColor: 'purple',
+barWidth: 1,
+height: 120,
+responsive: true,
+hideScrollbar: true,
+cursorColor: '#000',
+cursorWidth : 0.1,
+});
+
+// audio load
+wavesurfer.load('audio/H3llmy - DImention Of Taka.mp3');
+// wavesurfer.load('audio/Laur - Animosity [From WACCA] MV.mp3');
+// wavesurfer.load('audio/Laur - Metamorphose [From WACCA].mp3');
+// Laur - Metamorphose [From WACCA].mp3
+
+// audio play and pauses
+btnPlay.onclick = function(){
+    wavesurfer.playPause();
+    if(btnPlay.src.includes("play.png")){
+        btnPlay.src = "img/pause.png"
+    }else{
+        btnPlay.src = "img/play.png"
+    }
+}
+
+window.addEventListener('keydown', (e) => {  
+    if (e.keyCode === 32 && e.target === document.body) {  
+      e.preventDefault();  
+      wavesurfer.playPause();
+      if(btnPlay.src.includes("play.png")){
+          btnPlay.src = "img/pause.png"
+      }else{
+          btnPlay.src = "img/play.png"
+      }
+    }  
+  });
+
+// volume setting
+volumeSlider.addEventListener("mousemove", () => {
+    changeVolume(volumeSlider.value);
+});
+var changeVolume = (volume) => {
+    wavesurfer.setVolume(volume);
+    if(volumeSlider.value == 0){
+        wavesurfer.setMute(true);
+        btnVolume.src = "img/mute.png"
+    }else{
+        wavesurfer.setMute(false);
+        btnVolume.src = "img/volume.png"
+    }
+}
+
+// audio stop
+btnStop.onclick = function(){
+    wavesurfer.stop();
+    btnPlay.src = "img/play.png"
+    timeCurrent.innerText = '0:00'
+}
+
+window.addEventListener('keydown', (e) => {  
+    if (e.key === 's' && e.target === document.body) {  
+      e.preventDefault();  
+      wavesurfer.stop();
+      btnPlay.src = "img/play.png"
+      timeCurrent.innerText = '0:00'
+    }  
+  });
+
+// audio mute
+btnVolume.onclick = function(){
+    if(btnVolume.src.includes("volume.png")){
+        wavesurfer.setMute(true);
+        btnVolume.src = "img/mute.png"
+    }else if(volumeSlider.value == 0){
+        wavesurfer.setMute(true);
+        btnVolume.src = "img/mute.png"
+    }
+    else{
+        wavesurfer.setMute(false);
+        btnVolume.src = "img/volume.png"
+    }
+}
+
+window.addEventListener('keydown', (e) => {  
+    if (e.key === 'm' && e.target === document.body) {  
+      e.preventDefault();  
+        if(btnVolume.src.includes("volume.png")){
+            wavesurfer.setMute(true);
+            btnVolume.src = "img/mute.png"
+        }else if(volumeSlider.value == 0){
+            wavesurfer.setMute(true);
+            btnVolume.src = "img/mute.png"
+        }
+        else{
+            wavesurfer.setMute(false);
+            btnVolume.src = "img/volume.png"
+        }
+    }  
+  });
+
+// track audio
+wavesurfer.on('finish', function () {
+    btnPlay.src = "img/play.png"
+    timeCurrent.innerText = '0:00'
+    wavesurfer.stop();
+});
+// auto start
+wavesurfer.on('ready', function () {
+    // wavesurfer.normalize(true)
+    btnPlay.src = "img/pause.png"
+    wavesurfer.play();
+});
+
+
+// time
+var formatTime = function (time) {
+    return [
+        Math.floor((time % 3600) / 60), // minutes
+        ('00' + Math.floor(time % 60)).slice(-2) // seconds
+    ].join(':');
+};
+
+// Show current time
+wavesurfer.on('audioprocess', function () {
+    timeCurrent.innerText = ( formatTime(wavesurfer.getCurrentTime()) );
+});
+
+// Show clip duration
+wavesurfer.on('ready', function () {
+    timeRemaining.innerText = ( formatTime(wavesurfer.getDuration()) );
+});
+
+// Equalizer
+wavesurfer.on('ready', function () {
     var EQ = [
       {
         f: 32,
@@ -56,17 +193,14 @@ var wavesurfer = WaveSurfer.create({
     // Connect filters to wavesurfer
     wavesurfer.backend.setFilters(filters);
   
-    wavesurfer.setVolume(0.4);
-    document.querySelector('#volume').value = wavesurfer.backend.getVolume();
-    
     // Bind filters to vertical range sliders
     var container = document.querySelector('#equalizer');
     filters.forEach(function (filter) {
       var input = document.createElement('input');
       wavesurfer.util.extend(input, {
         type: 'range',
-        min: -40,
-        max: 40,
+        min: -20,
+        max: 20,
         value: 0,
         title: filter.frequency.value
       });
@@ -87,16 +221,5 @@ var wavesurfer = WaveSurfer.create({
       input.addEventListener('change', onChange);
     });
   
-    
-      var volumeInput = document.querySelector('#volume');
-      var onChangeVolume = function (e) {
-        wavesurfer.setVolume(e.target.value);
-        console.log(e.target.value);
-      };
-    volumeInput.addEventListener('input', onChangeVolume);
-    volumeInput.addEventListener('change', onChangeVolume);
-  
-    
-    // For debugging
     wavesurfer.filters = filters;
   });
