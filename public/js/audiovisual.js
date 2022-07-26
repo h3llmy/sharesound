@@ -47,7 +47,7 @@ window.addEventListener('keydown', (e) => {
     }  
   });
 
-// volume setting
+// audio volume
 volumeSlider.addEventListener("mousemove", () => {
     changeVolume(volumeSlider.value);
 });

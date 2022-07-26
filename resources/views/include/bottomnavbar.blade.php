@@ -3,7 +3,7 @@
         
         <div class="controls-bottom">
             <img src="{{ URL('img/album cover.jpg') }}" style="min-width: 40px" title="Album Cover">
-            <img src="{{ URL('img/next.png') }}" id="btnStop" title="previous">
+            <img src="{{ URL('img/previous.png') }}" id="btnprevious" title="Previous">
             <img src="{{ URL('img/play.png') }}" id="btnPlay" title="Play/Pause">
             <img src="{{ URL('img/stop.png') }}" id="btnStop" title="Stop">
             <img src="{{ URL('img/next.png') }}" id="btnStop" title="Next">

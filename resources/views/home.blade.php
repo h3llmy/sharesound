@@ -14,9 +14,7 @@
                 </div>
             </div>      
         <div>
-            <h1>aoskdoakwdoakdoakdoakd kD akdskaj d;lakj ds;al kjal; kjd ;lakj ;alkj a;lk ja;l kja;k ja;l kja; lkja ;lkj ;alkja ;lkj ;lkj</h1></div>
-        </div>
     </div>
 </div>
-@endsection
 @include('include.bottomnavbar')
+@endsection
