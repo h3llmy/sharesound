@@ -6,7 +6,6 @@
 <body>
     @include('include.navbar')
             @yield('content')
-    @include('include.bottomnavbar')
         </main>
 </body>
 </html>

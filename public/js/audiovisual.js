@@ -4,8 +4,6 @@ var btnVolume = document.getElementById("btnVolume");
 var timeCurrent = document.getElementById('time-current')
 var timeRemaining = document.getElementById('time-remaining')
 var volumeSlider = document.getElementById("VolumeSlider")
-var btneqDefault = document.getElementById("btneqDefault")
-var btnEQ = document.getElementById("btnEQ")
 
 var wavesurfer = WaveSurfer.create({
 normalize : true,

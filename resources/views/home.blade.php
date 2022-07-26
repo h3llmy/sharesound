@@ -9,15 +9,14 @@
                 <div class="info">
                     <h1>DImention Of Taka</h1>
                     <p>H3llmy</p>
-                    <div id="waveform"></div>
+                    <div id="waveform">
+                    </div>
                 </div>
-            </div>    
-            <div class="container d-flex justify-content-center">            
-                {{-- <div id="equalizer" class="mt-3"></div> --}}
-            </div>
-            
-            <DIv><h1>aoskdoakwdoakdoakdoakd kD akdskaj d;lakj ds;al kjal; kjd ;lakj ;alkj a;lk ja;l kja;k ja;l kja; lkja ;lkj ;alkja ;lkj ;lkj</h1></DIv>
+            </div>      
+        <div>
+            <h1>aoskdoakwdoakdoakdoakd kD akdskaj d;lakj ds;al kjal; kjd ;lakj ;alkj a;lk ja;l kja;k ja;l kja; lkja ;lkj ;alkja ;lkj ;lkj</h1></div>
         </div>
     </div>
 </div>
 @endsection
+@include('include.bottomnavbar')
