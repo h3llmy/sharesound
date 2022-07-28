@@ -29,8 +29,8 @@
             <a class="nav-link" href="#">Playlist</a>
             </li>
           </ul>
-          
-    
+
+
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <form class="d-flex" role="search">
@@ -44,7 +44,7 @@
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
-    
+
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
@@ -55,12 +55,12 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
-    
+
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="">
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="">
+                                    <a class="dropdown-item" href="{{ url('upload')}}">
                                         Upload
                                     </a>
                                     <hr class="dropdown-divider">
@@ -72,7 +72,7 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-    
+
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>

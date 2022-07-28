@@ -14,8 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('page.welcome');
 });
+Route::get('/upload', [App\Http\Controllers\UploadController::class, 'index']);
 
 Auth::routes();
 

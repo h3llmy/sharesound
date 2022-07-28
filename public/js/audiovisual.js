@@ -4,6 +4,9 @@ var btnVolume = document.getElementById("btnVolume");
 var timeCurrent = document.getElementById('time-current')
 var timeRemaining = document.getElementById('time-remaining')
 var volumeSlider = document.getElementById("VolumeSlider")
+var previous = document.getElementById("btnprevious")
+var next = document.getElementById("btnnext")
+
 
 var wavesurfer = WaveSurfer.create({
 normalize : true,
@@ -43,17 +46,36 @@ window.addEventListener('keydown', (e) => {
 
 // audio volume
 volumeSlider.addEventListener("input", () => {
+
+    localStorage.setItem('volumevalue', volumeSlider.value);
     changeVolume(volumeSlider.value);
 });
+
 var changeVolume = (volume) => {
     wavesurfer.setVolume(volume);
     if(volumeSlider.value == 0){
         wavesurfer.setMute(true);
         btnVolume.src = "img/mute.png"
-    }else{
-        wavesurfer.setMute(false);
+    }else {
+        wavesurfer.setMute(false)
         btnVolume.src = "img/volume.png"
     }
+}
+
+volumeSlider.value = localStorage.getItem('volumevalue');
+if (!localStorage.getItem('volumevalue')){
+    volumeSlider.value = "1"
+}
+changeVolume(volumeSlider.value);
+
+// audio previous
+previous.onclick = function(){
+    wavesurfer.skipBackward(10);
+}
+
+// audio next
+btnnext.onclick = function(){
+    wavesurfer.skipForward(10);
 }
 
 // audio stop
@@ -63,14 +85,15 @@ btnStop.onclick = function(){
     timeCurrent.innerText = '0:00'
 }
 
+
 window.addEventListener('keydown', (e) => {
     if (e.key === 's' && e.target === document.body) {
-      e.preventDefault();
-      wavesurfer.stop();
-      btnPlay.src = "img/play.png"
-      timeCurrent.innerText = '0:00'
+        e.preventDefault();
+        wavesurfer.stop();
+        btnPlay.src = "img/play.png"
+        timeCurrent.innerText = '0:00'
     }
-  });
+});
 
 // audio mute
 btnVolume.onclick = function(){
@@ -89,7 +112,7 @@ btnVolume.onclick = function(){
 
 window.addEventListener('keydown', (e) => {
     if (e.key === 'm' && e.target === document.body) {
-      e.preventDefault();
+        e.preventDefault();
         if(btnVolume.src.includes("volume.png")){
             wavesurfer.setMute(true);
             btnVolume.src = "img/mute.png"
@@ -102,7 +125,7 @@ window.addEventListener('keydown', (e) => {
             btnVolume.src = "img/volume.png"
         }
     }
-  });
+});
 
 // track audio
 wavesurfer.on('finish', function () {
@@ -136,79 +159,79 @@ wavesurfer.on('ready', function () {
 });
 
 // Equalizer
-  var EQ = [
+var EQ = [
     {
-      f: 32,
-      type: 'lowshelf'
+        f: 32,
+        type: 'lowshelf'
     }, {
-      f: 64,
-      type: 'peaking'
+        f: 64,
+        type: 'peaking'
     }, {
-      f: 125,
-      type: 'peaking'
+        f: 125,
+        type: 'peaking'
     }, {
       f: 250,
       type: 'peaking'
     }, {
-      f: 500,
-      type: 'peaking'
+        f: 500,
+        type: 'peaking'
     }, {
-      f: 1000,
-      type: 'peaking'
+        f: 1000,
+        type: 'peaking'
     }, {
-      f: 2000,
-      type: 'peaking'
+        f: 2000,
+        type: 'peaking'
     }, {
-      f: 4000,
-      type: 'peaking'
+        f: 4000,
+        type: 'peaking'
     }, {
-      f: 8000,
-      type: 'peaking'
+        f: 8000,
+        type: 'peaking'
     }, {
-      f: 16000,
-      type: 'highshelf'
+        f: 16000,
+        type: 'highshelf'
     }
-  ];
+];
 
-  // Create filters
-  var filters = EQ.map(function (band) {
+// Create filters
+var filters = EQ.map(function (band) {
     var filter = wavesurfer.backend.ac.createBiquadFilter();
     filter.type = band.type;
     filter.gain.value = 0;
-    filter.Q.value = 1;
+    filter.Q.value = 0.5;
     filter.frequency.value = band.f;
     return filter;
-  });
+});
 
-  // Connect filters to wavesurfer
-  wavesurfer.backend.setFilters(filters);
+// Connect filters to wavesurfer
+wavesurfer.backend.setFilters(filters);
 
-  // Bind filters to vertical range sliders
-  var container = document.querySelector('#equalizer');
-  filters.forEach(function (filter) {
+// Bind filters to vertical range sliders
+var container = document.querySelector('#equalizer');
+filters.forEach(function (filter) {
     var input = document.createElement('input');
     wavesurfer.util.extend(input, {
-      type: 'range',
-      min: -20,
-      max: 20,
-      value: 0,
-      title: filter.frequency.value + (' Hz')
+        type: 'range',
+        min: -20,
+        max: 20,
+        value: 0,
+        title: filter.frequency.value + ' Hz',
     });
     input.style.display = 'inline-block';
     input.setAttribute('orient', 'vertical');
     wavesurfer.drawer.style(input, {
-      'webkitAppearance': 'slider-vertical',
-      width: '50px',
-      height: '150px'
+        'webkitAppearance': 'slider-vertical',
+        width: '50px',
+        height: '150px',
     });
     container.appendChild(input);
 
     var onChange = function (e) {
-      filter.gain.value = ~~e.target.value;
+        filter.gain.value = ~~e.target.value;
     };
 
     input.addEventListener('input', onChange);
     input.addEventListener('change', onChange);
-  });
+});
 
-  wavesurfer.filters = filters;
+wavesurfer.filters = filters;
