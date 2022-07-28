@@ -1,6 +1,6 @@
 .background{
     width: 100%;
-    height: 100%;
+    height: 1;
     background-image: linear-gradient(rgba(0,0,0,0.1),#00b7ff);
     background-position: center;
     background-size: cover;

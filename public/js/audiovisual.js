@@ -117,7 +117,6 @@ wavesurfer.on('ready', function () {
     wavesurfer.play();
 });
 
-
 // time
 var formatTime = function (time) {
     return [
@@ -193,7 +192,7 @@ wavesurfer.on('ready', function () {
       min: -20,
       max: 20,
       value: 0,
-      title: filter.frequency.value
+      title: filter.frequency.value + (' Hz')
     });
     input.style.display = 'inline-block';
     input.setAttribute('orient', 'vertical');
@@ -202,10 +201,7 @@ wavesurfer.on('ready', function () {
       width: '50px',
       height: '150px'
     });
-  //   container.innerHTML = "";
     container.appendChild(input);
-
-  //   console.log(input);
 
     var onChange = function (e) {
       filter.gain.value = ~~e.target.value;

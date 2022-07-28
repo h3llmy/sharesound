@@ -13,17 +13,10 @@
                     </div>
                 </div>
             </div>
-            <div hidden>
-            <audio src="" controls id="audioPlayer">
-                Sorry, your browser doesn't support html5!
-            </audio>
-            </div>
-            <ul id="playlist">
-
-                <li class="current-song">
-                    <a onclick="wavesurfer.load('audio/H3llmy - DImention Of Taka.mp3')">Exit the Premises</a></li>
-                <li><a onclick="wavesurfer.load('audio/Laur - Animosity [From WACCA] MV.mp3')">Severe Tire Damage</a></li>
-                <li><a onclick="wavesurfer.load('audio/Laur - Metamorphose [From WACCA].mp3')">Broken Reality</a></li>
+            <ul id="playlist" class="container">
+                <li class="card mt-2 current-song"><a onclick="wavesurfer.load('audio/H3llmy - DImention Of Taka.mp3')">H3llmy - DImention Of Taka.mp3</a></li>
+                <li class="card mt-2"><a onclick="wavesurfer.load('audio/Laur - Animosity [From WACCA] MV.mp3')">Laur - Animosity [From WACCA] MV.mp3</a></li>
+                <li class="card mt-2"><a onclick="wavesurfer.load('audio/Laur - Metamorphose [From WACCA].mp3')">Laur - Metamorphose [From WACCA].mp3</a></li>
             </ul>
         <div>
     </div>
